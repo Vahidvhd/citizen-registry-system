@@ -3,7 +3,7 @@ from .models import Citizen
 
 # Create your tests here.
 class PeopleAppSmokeTest(TestCase):
-    def test_peaople_app_is_working(self):
+    def test_people_app_is_working(self):
         self.assertTrue(True)
 
 class CitizenModelTest(TestCase):
