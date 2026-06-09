@@ -47,4 +47,4 @@ class LoginViewTest(TestCase):
             }
         )
 
-        self.assertRedirects(response, reverse('signup'))
+        self.assertRedirects(response, reverse('search'))
