@@ -33,3 +33,46 @@ class UsageProfileModelTest(TestCase):
         self.assertEqual(profile.monthly_limit, 100)
         self.assertEqual(profile.daily_used, 0)
         self.assertEqual(profile.monthly_used, 0)
+
+
+    def test_user_can_search_when_under_limit(self):
+        user = User.objects.create_user(
+            username='vahid',
+            password='Vahidtest!',
+        )
+
+        profile = UsageProfile.objects.create(
+            user=user,
+        )
+
+        self.assertTrue(profile.can_search())
+
+
+    def test_consume_token_increases_usage(self):
+        user = User.objects.create_user(
+            username='vahid',
+            password='Vahidtest!',
+        )
+
+        profile = UsageProfile.objects.create(
+            user=user,
+        )
+
+        profile.consume_token()
+
+        self.assertEqual(profile.daily_used, 1)
+        self.assertEqual(profile.monthly_used, 1)
+
+
+    def test_user_cannot_search_when_daily_limit_is_reached(self):
+        user = User.objects.create_user(
+            username='vahid',
+            password='Vahidtest!',
+        )
+
+        profile = UsageProfile.objects.create(
+            user=user,
+            daily_used=10,
+        )
+
+        self.assertFalse(profile.can_search())
