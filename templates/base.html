@@ -3,17 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{% endblock %}</title>
+    <title>{% block title %}Citizen Registry System{% endblock %}</title>
 </head>
 <body>
-    {%block content %}
-    {% endblock %}
+    <nav>
+        {% if user.is_authenticated %}
+            <span>Hello, {{ user.username }}</span>
+            <a href="{% url 'search' %}">Search</a>
 
-    {% if user.is_authenticated %}
-    <form method="post" action="{% url 'logout' %}">
-        {% csrf_token %}
-        <button type="submit">Logout</button>
-    </form>
-{% endif %}
+            <form method="post" action="{% url 'logout' %}" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit">Logout</button>
+            </form>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'signup' %}">Sign Up</a>
+        {% endif %}
+    </nav>
+
+    <hr>
+
+    {% block content %}
+    {% endblock %}
 </body>
 </html>
