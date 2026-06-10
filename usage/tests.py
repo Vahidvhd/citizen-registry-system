@@ -76,3 +76,33 @@ class UsageProfileModelTest(TestCase):
         )
 
         self.assertFalse(profile.can_search())
+
+
+    def test_daily_remaining_returns_available_daily_tokens(self):
+        user = User.objects.create_user(
+            username='vahid',
+            password='Vahidtest!',
+        )
+
+        profile = UsageProfile.objects.create(
+            user=user,
+            daily_limit=10,
+            daily_used=4,
+        )
+
+        self.assertEqual(profile.daily_remaining(), 6)
+
+
+    def test_monthly_remaining_returns_available_monthly_tokens(self):
+        user = User.objects.create_user(
+            username='vahid',
+            password='Vahidtest!',
+        )
+
+        profile = UsageProfile.objects.create(
+            user=user,
+            monthly_limit=100,
+            monthly_used=25,
+        )
+
+        self.assertEqual(profile.monthly_remaining(), 75)

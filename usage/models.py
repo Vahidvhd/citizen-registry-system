@@ -27,3 +27,9 @@ class UsageProfile(models.Model):
         self.save(update_fields=['daily_used', 'monthly_used'])
 
         return True
+    
+    def daily_remaining(self):
+        return self.daily_limit - self.daily_used
+
+    def monthly_remaining(self):
+        return self.monthly_limit - self.monthly_used
