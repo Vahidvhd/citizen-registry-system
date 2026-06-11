@@ -47,3 +47,17 @@ class SearchViewAuthTest(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'people/search.html')
+
+    def test_search_page_has_usage_profile_context(self):
+        self.client.login(
+            username='operator1',
+            password='StrongPass123!',
+        )
+
+        response = self.client.get(reverse('search'))
+
+        self.assertIn('usage_profile', response.context)
+        self.assertEqual(
+            response.context['usage_profile'],
+            self.user.usageprofile
+        )

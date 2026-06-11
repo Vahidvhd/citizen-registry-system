@@ -1,7 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Citizen Search</h1>
+<h1>Citizen Search</h1>
 
-    <p>You are logged in</p>
+<section>
+    <h2>Usage</h2>
+
+    <p>Daily usage: {{ usage_profile.daily_used }} / {{ usage_profile.daily_limit }}</p>
+    <p>Remaining today: {{ usage_profile.daily_remaining }}</p>
+
+    <p>Monthly usage: {{ usage_profile.monthly_used }} / {{ usage_profile.monthly_limit }}</p>
+    <p>Remaining this month: {{ usage_profile.monthly_remaining }}</p>
+</section>
 {% endblock %}
