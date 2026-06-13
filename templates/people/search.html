@@ -12,4 +12,15 @@
     <p>Monthly usage: {{ usage_profile.monthly_used }} / {{ usage_profile.monthly_limit }}</p>
     <p>Remaining this month: {{ usage_profile.monthly_remaining }}</p>
 </section>
+
+<hr>
+
+<form method="get">
+    <input type="text" name="q" value="{{ query }}" placeholder="Search citizen...">
+    <button type="submit">Search</button>
+</form>
+
+{% if query %}
+    <p>You searched for: {{ query }}</p>
+{% endif %}
 {% endblock %}

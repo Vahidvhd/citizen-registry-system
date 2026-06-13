@@ -61,3 +61,19 @@ class SearchViewAuthTest(TestCase):
             response.context['usage_profile'],
             self.user.usageprofile
         )
+
+
+    def test_search_page_reads_query_parameter(self):
+        self.client.login(
+            username='operator1',
+            password='StrongPass123!',
+        )
+
+        response = self.client.get(
+            reverse('search'),
+            {'q': 'vahid'}
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['query'], 'vahid')
+        self.assertContains(response, 'You searched for: vahid')
